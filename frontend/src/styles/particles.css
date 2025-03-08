@@ -1,0 +1,28 @@
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.bg-primary {
+  background-color: #90caf9; /* MUI primary color */
+}
+
+.bg-secondary {
+  background-color: #ce93d8; /* MUI secondary color */
+}
+
+.bg-accent {
+  background-color: #f48fb1; /* MUI pink color */
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-100px) translateX(50px);
+  }
+} 

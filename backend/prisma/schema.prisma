@@ -1,0 +1,33 @@
+// Configure Prisma client generator for Python
+generator client {
+  provider = "prisma-client-py"    // Use Python client
+  interface = "asyncio"            // Use async/await syntax
+  recursive_type_depth = 5         // Allow nested relations up to 5 levels
+}
+
+// Configure database connection
+datasource db {
+  provider = "postgresql"          // Using PostgreSQL database
+  url      = env("DATABASE_URL")   // Database URL from environment variables
+}
+
+// User model - represents a user in the database
+model User {
+  id        Int      @id @default(autoincrement())  // Unique identifier
+  username  String   @unique                        // Unique username
+  password  String                                  // Hashed password
+  scores    Score[]                                // One-to-many relation with Score
+  createdAt DateTime @default(now())               // When user was created
+  updatedAt DateTime @updatedAt                    // Auto-updates when user is modified
+}
+
+// Score model - represents game scores
+model Score {
+  id        Int      @id @default(autoincrement())
+  points    Int                                    // Score points
+  user      User     @relation(fields: [userId], references: [id])  // Relation to User
+  userId    Int                                    // Foreign key to User
+  timestamp DateTime @default(now())               // When score was recorded
+  prompt    String?                               // Optional prompt used
+  imageUrl  String?                               // Optional generated image URL
+} 
